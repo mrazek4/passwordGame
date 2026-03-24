@@ -3,34 +3,53 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - master
+      - main   # pokud máš master, změň na master
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      # 1) Checkout - stáhne kód do CI prostředí
-      - name: Checkout repository
-        uses: actions/checkout@v3
 
-      # 2) Nastavení Node verze
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Use Node.js 20
         uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
 
-      # 3) Instalace závislostí
       - name: Install dependencies
         run: npm install
 
-      # 4) Build projektu
       - name: Build
         run: npm run build
 
-      # 5) Nastavení GitHub Pages
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
-      # 6) Výsledek uploadneme
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Cesta, kde se po buildu vytvoří výsledný projekt 
           path: ./dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
