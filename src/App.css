@@ -1,0 +1,208 @@
+:root {
+  --primary-color: #198754;
+  --primary-hover: #157347;
+
+  --background-color: #f4f7fb;
+  --surface-color: #ffffff;
+  --surface-color-2: #f8fafc;
+
+  --text-color: #1f2937;
+  --heading-color: #111827;
+  --muted-color: #6b7280;
+
+  --border-color: #dbe3ec;
+  --shadow-color: rgba(15, 23, 42, 0.08);
+
+  --input-bg: #ffffff;
+  --input-text: #1f2937;
+  --input-border: #cbd5e1;
+  --input-placeholder: #94a3b8;
+
+  --list-bg: #ffffff;
+
+  --strength-weak: #dc3545;
+  --strength-medium: #fd7e14;
+  --strength-strong: #198754;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #60a5fa;
+    --primary-hover: #3b82f6;
+
+    --background-color: #020617;
+    --surface-color: #0f172a;
+    --surface-color-2: #1e293b;
+
+    --text-color: #e2e8f0;
+    --heading-color: #f8fafc;
+    --muted-color: #94a3b8;
+
+    --border-color: #334155;
+    --shadow-color: rgba(0, 0, 0, 0.35);
+
+    --input-bg: #111827;
+    --input-text: #f8fafc;
+    --input-border: #475569;
+    --input-placeholder: #94a3b8;
+
+    --list-bg: #0f172a;
+
+    --strength-weak: #f87171;
+    --strength-medium: #f59e0b;
+    --strength-strong: #22c55e;
+  }
+}
+
+html, body, #root {
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background:
+          radial-gradient(circle at top, var(--surface-color-2) 0%, var(--background-color) 55%);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app {
+  max-width: 760px;
+  margin: 40px auto;
+  padding: 24px;
+}
+
+.app-title {
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+.card-box {
+  background: linear-gradient(180deg, var(--surface-color) 0%, var(--surface-color-2) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  color: var(--text-color);
+  box-shadow: 0 10px 30px var(--shadow-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-box h2,
+.card-box p,
+.card-box li,
+.card-box label,
+.card-box span {
+  color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+}
+
+.custom-btn {
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  color: white;
+  transition: all 0.25s ease;
+}
+
+.custom-btn:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.custom-btn:focus,
+.custom-btn:active {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+  color: white !important;
+  box-shadow: 0 0 0 0.2rem rgba(96, 165, 250, 0.25) !important;
+}
+
+.custom-input {
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
+  border: 1px solid var(--input-border) !important;
+  transition: all 0.25s ease;
+}
+
+.custom-input::placeholder {
+  color: var(--input-placeholder) !important;
+}
+
+.custom-input:focus {
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 0.2rem rgba(96, 165, 250, 0.2) !important;
+}
+
+.strength-bar {
+  height: 14px;
+  border-radius: 999px;
+  background-color: var(--border-color);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.strength-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.weak {
+  background-color: var(--strength-weak);
+}
+
+.medium {
+  background-color: var(--strength-medium);
+}
+
+.strong {
+  background-color: var(--strength-strong);
+}
+
+.list-group {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.list-group-item {
+  background-color: var(--list-bg) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.list-group-item + .list-group-item {
+  border-top: none !important;
+}
+
+.list-group-item[data-valid="true"] {
+  color: var(--strength-strong) !important;
+  font-weight: 600;
+}
+
+.list-group-item[data-valid="false"] {
+  color: var(--strength-weak) !important;
+  font-weight: 600;
+}
+
+.muted-text {
+  color: var(--muted-color);
+}
+
+p.fw-bold {
+  color: var(--heading-color);
+}
+.country-flag {
+  display: block;
+  width: 96px;
+  max-width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0 6px 18px var(--shadow-color);
+}
