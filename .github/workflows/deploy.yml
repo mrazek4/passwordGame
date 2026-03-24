@@ -3,7 +3,8 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main   # pokud máš master, změň na master
+      - master   # jestli máš větev main, změň na main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -43,6 +44,10 @@ jobs:
           path: ./dist
 
   deploy:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
