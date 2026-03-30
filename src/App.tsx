@@ -5,6 +5,7 @@ import PasswordInput from './components/PasswordInput';
 import PasswordStrength from './components/PasswordStrength';
 import CharacterSequenceValidator from './components/CharacterSequenceValidator';
 import PasswordTimeValidator from './components/PasswordTimeValidator';
+import CountryFlagValidator from './components/CountryFlagValidator';
 import type { PasswordData } from './types';
 
 function App() {
@@ -29,15 +30,18 @@ function App() {
         return 'Silné';
     }
 
+    // 👉 vyhodnocení síly hesla
     useEffect(() => {
         const strength = evaluatePassword(password);
         setPasswordStrength(strength);
     }, [password]);
 
+    // 👉 změna titulku
     useEffect(() => {
         document.title = `Síla hesla: ${passwordStrength}`;
     }, [passwordStrength]);
 
+    // 👉 časovač (pro refresh UI)
     useEffect(() => {
         const interval = setInterval(() => {
             setTime(prev => prev + 1);
@@ -46,22 +50,22 @@ function App() {
         return () => clearInterval(interval);
     }, []);
 
+    // 👉 sabotáž hesla
     useEffect(() => {
         const sabotageInterval = setInterval(() => {
             setPassword(prevPassword => {
-                // Náhodně rozhodneme, zda přidáme emoji nebo odebereme znak
                 const action = Math.random() < 0.5 ? 'add' : 'remove';
+
                 if (action === 'add') {
-                    // Přidáme emoji ke stávajícímu heslu
                     return prevPassword + "😜";
                 } else {
-                    // Odebereme náhodný znak, pokud heslo není prázdné
                     if (prevPassword.length === 0) return prevPassword;
                     const index = Math.floor(Math.random() * prevPassword.length);
                     return prevPassword.slice(0, index) + prevPassword.slice(index + 1);
                 }
             });
-        }, 120000);
+        }, 120000); // 2 minuty
+
         return () => clearInterval(sabotageInterval);
     }, []);
 
@@ -95,8 +99,13 @@ function App() {
                 <CharacterSequenceValidator data={data} />
             </div>
 
-            <div className="card card-box p-4">
+            <div className="card card-box p-4 mb-4">
                 <PasswordTimeValidator data={data} />
+            </div>
+
+            {/* 👉 TADY JE TA VLAJKA */}
+            <div className="card card-box p-4 mb-4">
+                <CountryFlagValidator password={password} />
             </div>
         </div>
     );
